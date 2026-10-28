@@ -29,3 +29,8 @@ python check_graph_model.py
 
 ## Ablation switches
 `--arch baseline|gst`, `--mid amtf|none`, `--share-streams`, `--no-part-pool`, `--pool query|mean`, `--gcn-hops 0` (attention-only encoder).
+
+## Publishing Kaggle training runs
+The final optional cell in `kaggle_ntu.ipynb` publishes each completed GST or baseline run as a separate GitHub Release. Add a Kaggle Secret named `GITHUB_TOKEN` with fine-grained access to this repository and **Contents: Read and write** permission, and enable Internet for the notebook. Never put the token in notebook source or print it.
+
+Each uniquely tagged release contains one ZIP with `final_weights.pth`, `final.json`, `history.json` (when available), and `run_metadata.json` with the source commit, training arguments, result summary, and SHA-256 hashes. A `github_release.json` marker in the run output prevents accidentally publishing the same run twice in one Kaggle working session. The NTU dataset and resume checkpoint are not uploaded. Releases are public because the repository is public. Code changes should be reviewed and pushed as normal Git commits; the release records which source commit produced each run.
